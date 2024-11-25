@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+User home
+{% endblock title %}
+{% block content %}
+Welcome <b>{{request.user.username|upper}}</b>
+<hr>
+{% if question is None %}
+<div class="alert alert-success" role="alert">
+    <p>You have answered all our Questions.</p><br>
+    See the leaderboard <a href="{% url 'leaderboard' %}">Here</a>
+</div>
+{% else %}
+<div class="text-info"><p>{{question.question}}</p></div>
+  <form class="form" action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="question_pk" value="{{ question.pk }}">
+        {% for choice in question.choices.all %}
+          <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="choice_pk" id="choice-{{ forloop.counter }}" value="{{ choice.pk }}">
+            <label class="form-check-label" for="choice-{{ forloop.counter }}">
+              {{ choice.choice }}
+            </label>
+          </div>
+
+        {% endfor %}
+        <input class="btn btn-warning btn-sm" type="submit" value="Submit">
+    </form>
+
+{% endif %}
+{% endblock content %}

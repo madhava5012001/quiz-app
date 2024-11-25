@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Leaderboard
+{% endblock title %}
+{% block content %}
+{% if top_profiles %}
+<h1 class="text-center my-4"><span class="badge badge-info"><i class="fa fa-trophy" aria-hidden="true"></i> TOP {{ top_players.count }} PLAYERS <i
+        class="fa fa-trophy" aria-hidden="true"></i></span></h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>Position</th>
+        <th>Username</th>
+        <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for profile in top_profiles %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ profile.user.username }}</td>
+        <td>{{ profile.total_score }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">
+    <b>No players to show for now 😟</b>
+</div>
+{% endif %}
+{% endblock content %}

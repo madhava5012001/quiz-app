@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="navbar navbar-expand-md navbar-gray bg-gray"style="background-color:#bdc3c7;">
+    <div class="container-fluid">
+
+        <div id="navbarNav" class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'user-home' %}" class="  nav-link">Home</a>
+                </li>
+                 <li class="nav-item">
+                    <a href="{% url 'leaderboard' %}" class=" nav-link">Leaderboard</a>
+                </li>
+                {% else %}
+                 <li class="nav-item">
+                    <a href="{% url 'home' %}" class="  nav-link">Home</a>
+                </li>
+                 <li class="nav-item">
+                    <a href="{% url 'login' %}" class=" nav-link">Login</a>
+                </li>
+                 <li class="nav-item">
+                    <a href="{% url 'register' %}" class=" nav-link">Signup</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="nav-item dropdown">
+            <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                <img src="{% static 'user.png' %}" style="height:40px;width:40px;border-radius:50%;" alt="">&nbsp;
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a href="#" class="dropdown-item">Profile</a></li>
+                  <li><a href="{% url 'logout' %}" class="dropdown-item">Logout</a></li>
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+</nav>
